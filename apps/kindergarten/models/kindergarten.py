@@ -3,13 +3,12 @@ from django.db import models
 from apps.utils.abs_model import AbstractBaseModel
 
 
-
 class KinderGarten(AbstractBaseModel):
     """
     This model is used to store the information of the kindergartens
     """
     name = models.CharField(max_length=255)
-    region = models.ForeignKey('Region', on_delete=models.CASCADE, related_name='kindergartens')
+    district = models.ForeignKey('kindergarten.District', on_delete=models.CASCADE, related_name='kindergartens')
     description = models.TextField(max_length=500, help_text='Max 500 characters')
     longitude = models.FloatField(null=True, blank=True, help_text='Longitude of the location')
     latitude = models.FloatField(null=True, blank=True, help_text='Latitude of the location')
@@ -17,7 +16,6 @@ class KinderGarten(AbstractBaseModel):
     inn = models.CharField(max_length=255, help_text='Enter the INN of the kindergarten')
 
     def __str__(self):
-
         return self.name
 
     class Meta:
@@ -48,4 +46,3 @@ class KinderGartenCamera(AbstractBaseModel):
         verbose_name = 'Kinder Garden Camera'
         verbose_name_plural = 'Kinder Garden Cameras'
         unique_together = ('kindergarten', 'camera')
-
